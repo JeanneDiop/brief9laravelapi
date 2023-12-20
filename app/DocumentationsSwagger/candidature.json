@@ -1,0 +1,291 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "endpointCandidature",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/candidatures": {
+            "get": {
+                "tags": [
+                    "Candidatures"
+                ],
+                "summary": "Obtenir toutes les candidatures",
+                "description": "Récupère toutes les candidatures.",
+                "operationId": "901f2e3aabc628534995e87834ad378f",
+                "responses": {
+                    "200": {
+                        "description": "Liste de toutes les candidatures",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Candidature"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Candidatures"
+                ],
+                "summary": "Ajouter une nouvelle candidature",
+                "description": "Crée une nouvelle candidature avec les informations fournies.",
+                "operationId": "37edc19bbdce867b226c502cf84f5e62",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "description": "ID de l'utilisateur",
+                                        "type": "integer"
+                                    },
+                                    "formation_id": {
+                                        "description": "ID de la formation",
+                                        "type": "integer"
+                                    },
+                                    "statut": {
+                                        "description": "Statut de la candidature (attente, accepter, refuser)",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Candidature ajoutée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer"
+                                        },
+                                        "status_message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Candidature"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        },
+        "/api/candidatures/acceptees": {
+            "get": {
+                "tags": [
+                    "Candidatures"
+                ],
+                "summary": "Lister toutes les candidatures acceptées",
+                "description": "Récupère la liste de toutes les candidatures acceptées.",
+                "operationId": "314bacd1dce5fc91ec1bacb71a875d21",
+                "responses": {
+                    "200": {
+                        "description": "Liste de toutes les candidatures acceptées",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Candidature"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        },
+        "/api/candidatures/refusees": {
+            "get": {
+                "tags": [
+                    "Candidatures"
+                ],
+                "summary": "Lister toutes les candidatures refusées",
+                "description": "Récupère la liste de toutes les candidatures refusées.",
+                "operationId": "9fbe5b3e930743f56ca3d4080f27b4ad",
+                "responses": {
+                    "200": {
+                        "description": "Liste de toutes les candidatures refusées",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Candidature"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        },
+        "/api/candidatures/{id}": {
+            "put": {
+                "tags": [
+                    "Candidatures"
+                ],
+                "summary": "Modifier le statut d'une candidature pour l'accepter",
+                "description": "Modifie le statut d'une candidature pour l'accepter avec les informations fournies.",
+                "operationId": "e0a9d19da7c5937f2fa71bc806034de5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la candidature à mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "description": "ID de l'utilisateur",
+                                        "type": "integer"
+                                    },
+                                    "formation_id": {
+                                        "description": "ID de la formation",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Candidature modifiée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer"
+                                        },
+                                        "status_message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Candidature"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Candidature non trouvée"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        },
+        "/api/candidatures/{id}/refuser": {
+            "put": {
+                "tags": [
+                    "Candidatures"
+                ],
+                "summary": "Modifier le statut d'une candidature pour la refuser",
+                "description": "Modifie le statut d'une candidature pour la refuser avec les informations fournies.",
+                "operationId": "76fe871b9081d8ffdd85022778746691",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la candidature à mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "description": "ID de l'utilisateur",
+                                        "type": "integer"
+                                    },
+                                    "formation_id": {
+                                        "description": "ID de la formation",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Candidature modifiée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer"
+                                        },
+                                        "status_message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Candidature"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Candidature non trouvée"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        }
+    }
+}

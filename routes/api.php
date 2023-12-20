@@ -27,13 +27,14 @@ Route::get('/login', function(){
     ], 401);
 })->name('login');
 // Tous les users peuvent se connecter 
-Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
-Route::post('login', [AuthController::class, 'login']);
-});
-    // Route::post('login', [AuthController::class, 'login']);
-Route::post('register', [AuthController::class, 'register']);
+Route::group(['middleware' => 'api'], function ($router) {
 Route::post('logout', [AuthController::class, 'logout']);
 Route::post('refresh', [AuthController::class, 'refresh']);
+  
+});
+ Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+
 
 
 

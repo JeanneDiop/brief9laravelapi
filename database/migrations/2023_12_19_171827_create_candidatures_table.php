@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('formation_id');
-            $table->foreign('formation_id')->references('id')->on('formations');
+            $table->foreign('formation_id')->references('id')->on('formations')->onDelete('cascade');
             $table->enum('statut',['en attente', 'accepter', 'refuser'])->default('en attente');
             $table->timestamps();
         });
