@@ -10,6 +10,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Candidature extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'formation_id',
+        'user_id',
+        'statut'
+       
+    ];
+
 
     public function user(){
         return $this->belongsTo(User::class);
