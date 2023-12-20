@@ -3,19 +3,18 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Formation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Role extends Model
+class Candidature extends Model
 {
     use HasFactory;
-    
-    protected $fillable = [
-        'nom'
-    ];
-
 
     public function user(){
-        return $this->hasmany(User::class);
+        return $this->belongsTo(User::class);
+    }
+    public function formation(){
+            return $this->belongsTo(Formation::class);
 }
 }

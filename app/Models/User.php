@@ -3,12 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Role;
+use App\Models\Formation;
+use App\Models\Candidature;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable  implements JWTSubject
 {
@@ -64,4 +67,15 @@ class User extends Authenticatable  implements JWTSubject
     {
         return[];
     }
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+    public function candidature(){
+        return $this->hasMany(Candidature::class);
+    }
+    public function formation(){
+        return $this->hasMany(Formation::class);
+    }
 }
+
