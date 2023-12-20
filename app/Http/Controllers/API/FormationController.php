@@ -51,9 +51,13 @@ class FormationController extends Controller
   {
    
     try {
-
+      if(auth()->check() && auth()->user()->role_id === 1){
+        $user_id=auth()->user()->id;
+      }
+      
       $formation = Formation::find($id);
-
+      
+        //  $formation->user_id= $user_id ;
         $formation->nom = $request->nom;
         $formation->details = $request->details;
         $formation->duree = $request->duree;

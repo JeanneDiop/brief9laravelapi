@@ -26,24 +26,49 @@ Route::get('/login', function(){
         'error' => 'Unauthenticated', 
     ], 401);
 })->name('login');
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
+// Tous les users peuvent se connecter 
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
+Route::post('login', [AuthController::class, 'login']);
+});
+    // Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+Route::post('logout', [AuthController::class, 'logout']);
+Route::post('refresh', [AuthController::class, 'refresh']);
 
+
+
+
+   
+     //lister Candidature
+Route::get('candidature/lister', [CandidatureController::class, 'index']);
+
+     //accepter candidature
+Route::put('candidature/accepter/{id}',[CandidatureController::class, 'update']);
+     //refuser candidature
+Route::put('candidature/refuser/{id}',[CandidatureController::class, 'refuser']);
+
+     //lister les candidatures accepter
+Route::get('candidature/listeraccepter',[CandidatureController::class, 'listeraccepter']);
+     //lister les candidatures refuser
+Route::get('candidature/listerrefuser',[CandidatureController::class, 'listerrefuser']);
+
+Route::middleware(['auth:api','role_Candidat'])->group(function() {
+ //ajouter Candidature
+ Route::post('candidature/create', [CandidatureController::class, 'store']);
+});
+
+Route::middleware(['auth:api','role_AdminSimplon'])->group(function() {
+   
     //lister formation
-     Route::get('formation/lister', [FormationController::class, 'index']);
+    Route::get('formation/lister', [FormationController::class, 'index']);
     //ajouter formation
-     Route::post('formation/create', [FormationController::class, 'store']);
+    Route::post('formation/create', [FormationController::class, 'store']);
     //pour modifier formation
      Route::put('Formation/edit/{id}', [FormationController::class, 'update']);
     //pour supprimer formation
     Route::put('formation/delete/{id}', [FormationController::class, 'delete']);
 
-
-     //ajouter Candidature
-     Route::post('candidature/create', [CandidatureController::class, 'store']);
-     //lister Candidature
+    //lister Candidature
      Route::get('candidature/lister', [CandidatureController::class, 'index']);
 
      //accepter candidature
@@ -55,4 +80,4 @@ Route::get('/login', function(){
      Route::get('candidature/listeraccepter',[CandidatureController::class, 'listeraccepter']);
      //lister les candidatures refuser
      Route::get('candidature/listerrefuser',[CandidatureController::class, 'listerrefuser']);
-
+   });
