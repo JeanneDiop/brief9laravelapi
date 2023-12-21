@@ -32,53 +32,35 @@ Route::post('logout', [AuthController::class, 'logout']);
 Route::post('refresh', [AuthController::class, 'refresh']);
   
 });
- Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
-
-
-
-
-
-   
-     //lister Candidature
-Route::get('candidature/lister', [CandidatureController::class, 'index']);
-
-     //accepter candidature
-Route::put('candidature/accepter/{id}',[CandidatureController::class, 'update']);
-     //refuser candidature
-Route::put('candidature/refuser/{id}',[CandidatureController::class, 'refuser']);
-
-     //lister les candidatures accepter
-Route::get('candidature/listeraccepter',[CandidatureController::class, 'listeraccepter']);
-     //lister les candidatures refuser
-Route::get('candidature/listerrefuser',[CandidatureController::class, 'listerrefuser']);
-
+//lister formation
+Route::get('formation/lister', [FormationController::class, 'index']);
+ //middleware candidat  
 Route::middleware(['auth:api','role_Candidat'])->group(function() {
  //ajouter Candidature
  Route::post('candidature/create', [CandidatureController::class, 'store']);
 });
-
+//middleware admin simplon
 Route::middleware(['auth:api','role_AdminSimplon'])->group(function() {
    
-    //lister formation
-    Route::get('formation/lister', [FormationController::class, 'index']);
-    //ajouter formation
-    Route::post('formation/create', [FormationController::class, 'store']);
-    //pour modifier formation
-     Route::put('Formation/edit/{id}', [FormationController::class, 'update']);
-    //pour supprimer formation
-    Route::put('formation/delete/{id}', [FormationController::class, 'delete']);
+//ajouter formation
+Route::post('formation/create', [FormationController::class, 'store']);
+//pour modifier formation
+Route::put('Formation/edit/{id}', [FormationController::class, 'update']);
+//pour supprimer formation
+Route::put('formation/delete/{id}', [FormationController::class, 'delete']);
 
-    //lister Candidature
-     Route::get('candidature/lister', [CandidatureController::class, 'index']);
+//lister Candidature
+Route::get('candidature/lister', [CandidatureController::class, 'index']);
 
-     //accepter candidature
-     Route::put('candidature/accepter/{id}',[CandidatureController::class, 'update']);
-     //refuser candidature
-     Route::put('candidature/refuser/{id}',[CandidatureController::class, 'refuser']);
+//accepter candidature
+Route::put('candidature/accepter/{id}',[CandidatureController::class, 'update']);
+//refuser candidature
+Route::put('candidature/refuser/{id}',[CandidatureController::class, 'refuser']);
 
-     //lister les candidatures accepter
-     Route::get('candidature/listeraccepter',[CandidatureController::class, 'listeraccepter']);
-     //lister les candidatures refuser
-     Route::get('candidature/listerrefuser',[CandidatureController::class, 'listerrefuser']);
+//lister les candidatures accepter
+Route::get('candidature/listeraccepter',[CandidatureController::class, 'listeraccepter']);
+//lister les candidatures refuser
+Route::get('candidature/listerrefuser',[CandidatureController::class, 'listerrefuser']);
    });
