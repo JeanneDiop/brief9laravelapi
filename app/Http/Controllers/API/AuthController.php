@@ -1,19 +1,22 @@
 <?php
 
 namespace App\Http\Controllers\API;
+use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
+use openApi\Annotations as OA;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use openApi\Annotations as OA;
 
 /**
  
 *@OA\Info(title="endpointCandidature", version="0.1")*/
 class AuthController extends Controller
 {
+  
+      
       /**
      * @OA\SecurityScheme(
      *     type="apiKey",
@@ -24,6 +27,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        //ca veut dire  tout le monde peut s'inscire et se connecter mais pour avoir accés aux autres routes  il faut que tu t'authentifie
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
     /**
@@ -217,4 +221,15 @@ class AuthController extends Controller
             ]
         ]);
     }
+
+    public function listeCandidat( )
+    {
+            $candidats = User::where('role_id', 2)->get();
+           
+          return response()->json([
+            'status_code' => 200,
+            'status_message' => ' toutes les candidat ont été recupéré',
+            'data' => $candidats,
+          ]);
+        } 
 }

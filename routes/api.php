@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FormationController;
 use App\Http\Controllers\API\CandidatureController;
@@ -20,7 +21,7 @@ use App\Http\Controllers\API\CandidatureController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
+// Route::get('listercandidat',[AuthController::class,'listercandidat']);
 Route::get('/login', function(){
     return response()->json([
         'error' => 'Unauthenticated', 
@@ -63,4 +64,7 @@ Route::put('candidature/refuser/{id}',[CandidatureController::class, 'refuser'])
 Route::get('candidature/listeraccepter',[CandidatureController::class, 'listeraccepter']);
 //lister les candidatures refuser
 Route::get('candidature/listerrefuser',[CandidatureController::class, 'listerrefuser']);
+
    });
+   //lister les candidats
+   Route::get('liste_candidat',[AuthController::class,'listeCandidat']);

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use Exception;
+use App\Models\User;
 use App\Models\Candidature;
 use Illuminate\Http\Request;
+use openApi\Annotations as OA;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCandidatureRequest;
 use App\Http\Requests\RefuserCandidatureRequest;
 use App\Http\Requests\AccepterCandidatureRequest;
-use openApi\Annotations as OA;
 /**
  
 *@OA\Info(title="endpointCandidature", version="0.1")*/
@@ -49,6 +50,7 @@ class CandidatureController extends Controller
       return response()->json($e);
     }
   }
+
 
 /**
  * @OA\Get(
