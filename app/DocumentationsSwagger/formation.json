@@ -1,0 +1,225 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "endpointFormation",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/formations": {
+            "get": {
+                "tags": [
+                    "Formations"
+                ],
+                "summary": "Obtenir toutes les formations",
+                "description": "Récupère la liste de toutes les formations.",
+                "operationId": "e27e45808c70a2393a4a6ec4d840d4c9",
+                "responses": {
+                    "200": {
+                        "description": "Liste de toutes les formations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Formation"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Formations"
+                ],
+                "summary": "Ajouter une nouvelle formation",
+                "description": "Crée une nouvelle formation avec les informations fournies.",
+                "operationId": "4c8624ac9434cc4b60700a82353133a9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "description": "Nom de la formation",
+                                        "type": "string"
+                                    },
+                                    "details": {
+                                        "description": "Détails de la formation",
+                                        "type": "string"
+                                    },
+                                    "duree": {
+                                        "description": "Durée de la formation",
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "description": "ID de l'utilisateur associé à la formation",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Formation ajoutée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer"
+                                        },
+                                        "status_message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Formation"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        },
+        "/api/formations/{id}": {
+            "put": {
+                "tags": [
+                    "Formations"
+                ],
+                "summary": "Modifier une formation",
+                "description": "Modifie une formation avec les informations fournies.",
+                "operationId": "f81cb20efe5e6043b61edb79949b98af",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la formation à mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "description": "Nom de la formation",
+                                        "type": "string"
+                                    },
+                                    "details": {
+                                        "description": "Détails de la formation",
+                                        "type": "string"
+                                    },
+                                    "duree": {
+                                        "description": "Durée de la formation",
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "description": "ID de l'utilisateur associé à la formation",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Formation modifiée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer"
+                                        },
+                                        "status_message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Formation"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Formation non trouvée"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Formations"
+                ],
+                "summary": "Supprimer une formation",
+                "description": "Supprime une formation en fonction de l'ID fourni.",
+                "operationId": "c04225f335502d04d8a388ee8b749aeb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la formation à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Formation supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer"
+                                        },
+                                        "status_message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Formation"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Formation non trouvée"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        }
+    }
+}
